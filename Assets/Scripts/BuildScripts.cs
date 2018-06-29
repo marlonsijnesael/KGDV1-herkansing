@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.UI;
 /// <summary>
 /// The functions of this class are  called by buttons on the Build-canvas
 /// The values for the Buildhouse() function are set in the inspector at the respective button
@@ -16,6 +16,25 @@ public struct ButtonInput {
 
 public class BuildScripts : MonoBehaviour {
     public GameObject cameraParent;
+    public Text uiTextHouse;
+    public Text uiTextFactory;
+    public Text uiTextLumberYard;
+    
+    public string tagToCheck;
+    public int basePrice;
+
+    private void Update() {
+
+        SetPrice("Simple house", "House", uiTextHouse, 10);
+        SetPrice("Factory", "Factory", uiTextFactory, 20);
+        SetPrice("Lumberyard", "LumberYard", uiTextLumberYard, 15);
+    }
+
+    private void SetPrice(string _name,string _tag, Text _text, int _basePrice) {
+        float scaler = 1.2f * (GameObject.FindGameObjectsWithTag(_tag).Length + 1);
+        int cost = (int)(scaler * _basePrice);
+        _text.text =  _name + " ($" + cost +") ";
+    }
 
     //used to have 2 inputs from on click in unity UI
     //splits String in to parts and parsed them to integers and puts them in a ButtonInput struct
@@ -52,6 +71,7 @@ public class BuildScripts : MonoBehaviour {
         GameManager._Instance.money += 10;
     }
 
+    
     //add number for cost and prefab in this format: "x,y" 
     public void Build(string _costsAndPrefab) {
         //split cost and prefab to spawn, for readabilty

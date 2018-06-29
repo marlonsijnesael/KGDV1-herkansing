@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public GameObject buildCanvas;
     public GameObject WoodCanvas;
     public GameObject selectedObject;
-
+    public GameObject WinPanel;
     private GameObject LastSelectedObject;
 
     [Header("city numbers")]
@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
         cityRating = Rating();
         if (cityRating >= 100) {
             cityRating = 100;
+            WinPanel.SetActive(true);
             Debug.Log("you have destroyed the world, thank you!!!");
         }
     }
